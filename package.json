@@ -12,6 +12,7 @@
   "license": "ISC",
   "repository": {},
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mongojs": "^2.4.0"
   }
 }
