@@ -2,8 +2,21 @@ const app = angular.module('myApp', []);
 app.controller('AppCtrl', function($scope, $http) {
     console.log("I'm the Fat Controller");
 
-  $http.get('/contactlist').success(function(response) {
-    console.log("I have the contactlist data");
-    $scope.contactlist = response;
-  });
+  var refresh = function() {
+    $http.get('/contactlist').success(function(response) {
+      console.log("Contactlist controller loaded");
+      $scope.contactlist = response;
+      $scope.contact = "";
+    });
+  };
+
+  refresh();
+
+    $scope.addContact = function() {
+      console.log($scope.contact);
+      $http.post('/contactlist', $scope.contact).success(function(response) {
+        console.log(response);
+        refresh();
+      });
+    };
 });﻿

@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const mongojs = require('mongojs');
 const db = mongojs('contactlist', ['contactlist']);
+const bodyParser = require('body-parser');
 
 app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.json());
 
 app.get('/contactlist', function(req, res) {
   console.log("I got a get ... request");
@@ -11,6 +13,13 @@ app.get('/contactlist', function(req, res) {
   db.contactlist.find(function(err, docs) {
     console.log(docs);
     res.json(docs);
+  });
+});
+
+app.post('/contactlist', function (req, res) {
+  console.log(req.body);
+  db.contactlist.insert(req.body, function(err, doc) {
+    res.json(doc);
   });
 });
 
